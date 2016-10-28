@@ -9,9 +9,9 @@ const PokemonIndexItem = (props) => {
   return(
     <li className="pokemon-index-item"
         onClick={handleClick(`/pokemon/${poke.id}`)}>
-      <span>{poke.id}</span>
+      <span className="pokemon-id">{poke.id}</span>
       <img src={poke.image_url} alt={poke.name} />
-      {poke.name}
+      <span className="pokemon-name">{poke.name}</span>
     </li>
   );
 };
