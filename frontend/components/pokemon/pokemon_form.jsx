@@ -13,8 +13,6 @@ class PokemonForm extends React.Component{
         moves: ["", ""]
     };
 
-    this.errors = this.props.errors;
-    console.log(this.props);
     this.state = this.defaultState;
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -39,6 +37,19 @@ class PokemonForm extends React.Component{
     this.setState(this.defaultState);
   }
 
+  errors() {
+    if (this.props.errors.responseText) {
+
+      let errorMsg = this.props.errors.responseText;
+      let errorMsgs = errorMsg.slice(1, errorMsg.length - 1);
+      errorMsgs = errorMsgs.split(",").map( (error, idx) => (
+        <li key={idx}>{error.slice(1, error.length - 1)}</li>
+      ));
+
+      return errorMsgs;
+    }
+  }
+
   render() {
 
     const pokeTypes = [
@@ -59,49 +70,52 @@ class PokemonForm extends React.Component{
       "steel",
       "water"
     ];
-    const errormsg = this.errors;
-    console.log(this.errors.responseText);
+
     return(
-      <form onSubmit={this.handleSubmit}>
-        <p>{errormsg}</p>
-        <input type="text"
-          placeholder="Name"
-          value={this.state.name}
-          onChange={this.update('name')}>
-        </input>
-        <input type="text"
-          placeholder="Image Url"
-          value={this.state.image_url}
-          onChange={this.update('image_url')}>
-        </input>
-        <select name="poke_type" onChange={this.update('poke_type')}>
-          <option value="">Select a Type</option>
-          {pokeTypes.map( (type, index) => (
-            <option key={index} value={type}>{type}</option>
-          ))}
-        </select>
-        <input type="text"
-          placeholder="Attack"
-          value={this.state.attack}
-          onChange={this.updateInt('attack')}>
-        </input>
-        <input type="text"
-          placeholder="Defense"
-          value={this.state.defense}
-          onChange={this.updateInt('defense')}>
-        </input>
-        <input type="text"
-          placeholder="Move 1"
-          value={this.state.moves[0]}
-          onChange={this.updateArray('moves', 0)}>
-        </input>
-        <input type="text"
-          placeholder="Move 2"
-          value={this.state.moves[1]}
-          onChange={this.updateArray('moves', 1)}>
-        </input>
-        <button className="create-pokemon-button">Create Pokemon</button>
-      </form>
+      <section className="pokemon-detail-section">
+        <ul>
+          {this.errors()}
+        </ul>
+        <form onSubmit={this.handleSubmit}>
+          <input type="text"
+            placeholder="Name"
+            value={this.state.name}
+            onChange={this.update('name')}>
+          </input>
+          <input type="text"
+            placeholder="Image Url"
+            value={this.state.image_url}
+            onChange={this.update('image_url')}>
+          </input>
+          <select name="poke_type" onChange={this.update('poke_type')}>
+            <option value="">Select a Type</option>
+            {pokeTypes.map( (type, index) => (
+              <option key={index} value={type}>{type}</option>
+            ))}
+          </select>
+          <input type="text"
+            placeholder="Attack"
+            value={this.state.attack}
+            onChange={this.updateInt('attack')}>
+          </input>
+          <input type="text"
+            placeholder="Defense"
+            value={this.state.defense}
+            onChange={this.updateInt('defense')}>
+          </input>
+          <input type="text"
+            placeholder="Move 1"
+            value={this.state.moves[0]}
+            onChange={this.updateArray('moves', 0)}>
+          </input>
+          <input type="text"
+            placeholder="Move 2"
+            value={this.state.moves[1]}
+            onChange={this.updateArray('moves', 1)}>
+          </input>
+          <button className="create-pokemon-button">Create Pokemon</button>
+        </form>
+      </section>
     );
   }
 

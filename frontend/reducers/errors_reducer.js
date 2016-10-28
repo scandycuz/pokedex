@@ -6,7 +6,7 @@ const ErrorsReducer = (state = "", action) => {
 
   switch(action.type){
     case RECEIVE_POKEMON_ERRORS:
-      newState = action.errors.responseText;
+      newState = action.errors;
       return newState;
     default:
       return state;

@@ -8,11 +8,9 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const mapStateToProps = ( { errors } ) => {
-  return {
-    errors: errors
-  };
-};
+const mapStateToProps = ({ errors }) => ({
+  errors
+});
 
 export default connect(
   mapStateToProps,
